@@ -19,14 +19,24 @@ module.exports = {
     host: 'localhost',
     port: 3000,
     contentBase: path.join(__dirname, 'dist'),
-
     inline: true,
-    hot: true,
-    historyApiFallback: true
+    hot: true
   },
 
   module: {
   	rules: [
+
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react']
+          }
+        }
+      },
+
   		{
         test: /\.less$/, 
         use: [
