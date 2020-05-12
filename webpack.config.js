@@ -20,7 +20,8 @@ module.exports = {
     port: 3000,
     contentBase: path.join(__dirname, 'dist'),
     inline: true,
-    hot: true
+    hot: true,
+    historyApiFallback: true
   },
 
   module: {
