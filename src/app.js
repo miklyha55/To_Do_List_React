@@ -1,9 +1,9 @@
+import'./less/index';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store';
 import DevTools from './utils/index';
-import Header from './components/header/index';
 
 import Active from './active';
 import Completed from './completed';
@@ -18,6 +18,7 @@ export default class App extends React.Component {
 		inputValue: 'Задача 1',
 		titleActive: 'Активные задачи',
 		titleCompleted: 'Завершенные задачи',
+		warning: 'Вы не ввели текст задачи!',
 
 		changeInputHandler: (event) => {
 			this.setState({
@@ -34,6 +35,7 @@ export default class App extends React.Component {
 					}
 				})
 				this.setState({todos})
+
 			})
 		},
 
@@ -51,8 +53,13 @@ export default class App extends React.Component {
 
 		addTodoHandler: () => {
 			const todos = [...this.state.todos]
-			todos.push({key: todos.length || 0, name: this.state.inputValue, status: false, edit: false})
-			this.setState({todos, inputValue: 'Задача ' + (todos.length + 1)})
+			if(!this.state.inputValue) {
+				alert(this.state.warning)
+				return false
+			} else {
+				todos.push({key: todos.length || 0, name: this.state.inputValue, status: false, edit: false})
+				this.setState({todos, inputValue: 'Задача ' + (todos.length + 1)})
+			}
 		},
 
 		deleteTodoHandler: (key) =>  {
@@ -77,7 +84,7 @@ export default class App extends React.Component {
 				const todos = [...this.state.todos]
 				todos.filter((todo, index) => {
 					if(todo.key == key) {
-						todos[index].edit = true;
+						todos[index].edit = true
 					}
 				})
 				this.setState({todos})
@@ -89,7 +96,7 @@ export default class App extends React.Component {
 				const todos = [...this.state.todos]
 				todos.filter((todo, index) => {
 					if(todo.key == key) {
-						todos[index].edit = false;
+						todos[index].name ? todos[index].edit = false : alert(this.state.warning)
 					}
 				})
 				this.setState({todos})
@@ -120,11 +127,12 @@ export default class App extends React.Component {
 
 	render() {
 		return (
-    		<Provider store={ store }>
-    			<Active state = { this.state } todos={ this.showTodosActiveHandler.bind(this)() }/>
-    			<hr/>
-    			<Completed state = { this.state }  todos={ this.showTodosCompletedHandler.bind(this)() }/>
-		    </Provider>
+			<div className='app_wrapper'>
+	    		<Provider store={ store }>
+	    			<Active state = { this.state } todos={ this.showTodosActiveHandler.bind(this)() }/>
+	    			<Completed state = { this.state }  todos={ this.showTodosCompletedHandler.bind(this)() }/>
+			    </Provider>
+		    </div>
 	    )
    	}
 
