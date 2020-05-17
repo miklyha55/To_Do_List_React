@@ -9,7 +9,7 @@ import App from './app';
 const initialState = {
 
 	todos: [],
-	inputValue: 'Задача 1',
+	inputValue: '',
 	current_p_id: 0
 
 }

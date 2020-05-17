@@ -27,6 +27,18 @@ export default class Active extends React.Component {
 		}
 	}
 
+	keyPressAddHandler(time, event) {
+		if(event.ctrlKey && event.keyCode == 13) {
+			this.props.state.addTodoHandler.bind(this, time)()
+		} 
+	}
+
+	keyPressEditHandler(index, event) {
+		if(event.ctrlKey && event.keyCode == 13) {
+			this.props.state.saveTodoHandler.bind(this, index)()
+		} 
+	}
+
 	render() {
 		return (
 
@@ -52,7 +64,8 @@ export default class Active extends React.Component {
 								})}
 							</select>
 						</div>
-						<textarea className='add_form_textarea' value={ this.props.state.inputValue } onChange={ this.props.state.changeInputHandler.bind(this) }/>
+						<textarea className='add_form_textarea' onKeyDown={this.keyPressAddHandler.bind(this, this.getDate('time'))} value={ this.props.state.inputValue } onChange={ this.props.state.changeInputHandler.bind(this) }/>
+						<p className='add_form_textarea_info'>Ctrl + Enter</p>
 						<button className='add_form_button' onClick={ this.props.state.addTodoHandler.bind(this, this.getDate('time')) }>Добавить</button>
 					</div>
 				</div>
@@ -69,8 +82,7 @@ export default class Active extends React.Component {
 				            		</div>
 				            	</label>
 								{!todo.edit ? <span className='todo_active_name'>{ todo.name }</span>
-								:  <textarea type='text' className='todo_active_name' value={ todo.name } onChange={ this.props.state.changeInputTodoHandler.bind(this, todo.index) }/>}
-								
+								:  <textarea type='text' onKeyDown={this.keyPressEditHandler.bind(this, todo.index)} className='todo_active_name' value={ todo.name } onChange={ this.props.state.changeInputTodoHandler.bind(this, todo.index) }/>}
 								<div className='todo_active_controls unselectable'>
 									{!todo.edit ? <span className='todo_active_edit' onClick={ this.props.state.editTodoHandler.bind(this, todo.index) }>Редактировать</span> 
 									: <span className='todo_active_edit' onClick={ this.props.state.saveTodoHandler.bind(this, todo.index) }>Сохранить</span>}
@@ -91,7 +103,7 @@ export default class Active extends React.Component {
 								            		</div>
 								            	</label>
 												{!child.edit ? <span className={ child.checked ? 'todo_active_name todo_copmleted_undrline' : 'todo_active_name' }>{ child.name }</span>
-												:  <textarea type='text' className='todo_active_name' value={ child.name } onChange={ this.props.state.changeInputTodoHandler.bind(this, child.index) }/>}
+												:  <textarea type='text' onKeyDown={this.keyPressEditHandler.bind(this, child.index)} className='todo_active_name' value={ child.name } onChange={ this.props.state.changeInputTodoHandler.bind(this, child.index) }/>}
 												
 												<div className='todo_active_controls unselectable'>
 													{!child.edit ? <span className='todo_active_edit' onClick={ this.props.state.editTodoHandler.bind(this, child.index) }>Редактировать</span> 

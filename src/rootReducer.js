@@ -2,6 +2,7 @@ export default function rootReducer(state, action) {
 
     let todos = []
     let current_p_id = state.current_p_id
+    let inputValue = state.inputValue
 
     switch(action.type) {
 
@@ -49,7 +50,7 @@ export default function rootReducer(state, action) {
 
             current_p_id = 0
 
-            return Object.assign({}, state, { todos, current_p_id, inputValue: 'Задача ' + (todos.length + 1) })
+            return Object.assign({}, state, { todos, current_p_id })
 
         case 'editTodoHandler':
 
@@ -66,11 +67,11 @@ export default function rootReducer(state, action) {
             todos = [...state.todos]
             todos.filter((todo, index) => {
                 if(todo.index == action.index) {
-                    if (todos[index].name) {
-                        todos[index].edit = false
-                    } else {
-                        alert('Вы не ввели текст задачи!')
+                    if (!todos[index].name) {
+                        todos[index].name = 'Задача ' + (todos.length + 1)
                     }
+                    
+                    todos[index].edit = false
                 }
             })
             return Object.assign({}, state, { todos })
@@ -79,12 +80,12 @@ export default function rootReducer(state, action) {
 
             todos = [...state.todos]
             if(!state.inputValue) {
-                alert('Вы не ввели текст задачи!')
-                return state
-            } else {
-                todos.push({index: todos.length + 1, name: state.inputValue, status: 0, edit: false, p_id: state.current_p_id, checked: false, time:action.time})
-                return Object.assign({}, state, { todos, inputValue: 'Задача ' + (todos.length + 1) })
+                inputValue = 'Задача ' + (todos.length + 1)
             }
+
+            todos.push({index: todos.length + 1, name: inputValue, status: 0, edit: false, p_id: state.current_p_id, checked: false, time:action.time})
+            inputValue = ''
+            return Object.assign({}, state, { todos, inputValue })
 
         case 'changeCheckboxChildHandler':
 

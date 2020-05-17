@@ -38,7 +38,6 @@ class App extends React.Component {
 		return (
 
 			<div className='app_wrapper'>
-				{ console.log(this.props.todos) }
     			<Active state = { this.props } todos={ this.showTodosActiveHandler.bind(this)() }/>
     			<Completed state = { this.props }  todos={ this.showTodosCompletedHandler.bind(this)() }/>
 		    </div>
