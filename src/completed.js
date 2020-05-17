@@ -3,24 +3,22 @@ import PropTypes from 'prop-types';
 
 export default class Сompleted extends React.Component {
 
-	static path = '/completed';
-
 	constructor(props) {
-
 		super(props)
-
 	}
 
 	render() {
 		return (
 
-			<div className="app_completed">
+			<div className='app_completed'>
 				<div className='app_header unselectable'>
 					<div className='app_header_info'>
+						<a href='' className='app_link' onClick={ this.props.state.changePageHandler.bind(this) }>Активные задачи ({ this.props.activecount })</a>
 						<div className='app_header_title'>Завершенные задачи</div> 
 					</div>
 					<div className='app_header_count'>{ this.props.todos.length } зад.</div>
 				</div>
+
 				<ul className='todos_copmleted'>
 					{this.props.todos.map(todo => {
 			          return (

@@ -52,10 +52,6 @@ html {
   box-sizing: border-box;
 }
 
-#app {
-	margin-bottom: 200px;
-}
-
 .unselectable {
 	-webkit-touch-callout: none; 
 	-webkit-user-select: none;
@@ -118,11 +114,18 @@ html {
 }
 
 .app_wrapper > * {
-	max-width: calc(100%/2);
-	flex-basis: calc(100%/2);
-	min-width: 520px;
 	margin: 0 auto;
 	padding: 0 20px; 
+}
+
+.app_active, .app_completed {
+	flex-basis: 55%;
+	min-width: 500px;
+}
+
+.app_header_wrapper {
+	flex-basis: 45%;
+	min-width: 435px;
 }
 
 .app_header {
@@ -203,6 +206,16 @@ html {
 
 [type='checkbox'] {
 	cursor: pointer;
+}
+
+.app_active > .todos_active::-webkit-scrollbar, .app_copmleted > .todos_copmleted::-webkit-scrollbar {
+	width:0px;
+}
+
+.app_active > .todos_active, .app_copmleted > .todos_copmleted {
+	overflow-x: hidden;
+    overflow-y: scroll;
+    height: calc(100vh - 130px);
 }
 
 .todos_active, .todos_copmleted {

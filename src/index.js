@@ -10,7 +10,8 @@ const initialState = {
 
 	todos: [],
 	inputValue: '',
-	current_p_id: 0
+	current_p_id: 0,
+	page_state: 0
 
 }
 

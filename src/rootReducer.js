@@ -67,7 +67,7 @@ export default function rootReducer(state, action) {
             todos = [...state.todos]
             todos.filter((todo, index) => {
                 if(todo.index == action.index) {
-                    if (!todos[index].name) {
+                    if (!todos[index].name.replace(/\s/g, '')) {
                         todos[index].name = 'Задача ' + (todos.length + 1)
                     }
                     
@@ -79,7 +79,7 @@ export default function rootReducer(state, action) {
         case 'addTodoHandler':
 
             todos = [...state.todos]
-            if(!state.inputValue) {
+            if(!state.inputValue.replace(/\s/g, '')) {
                 inputValue = 'Задача ' + (todos.length + 1)
             }
 
@@ -115,7 +115,14 @@ export default function rootReducer(state, action) {
             })
             return Object.assign({}, state, { todos, current_p_id })
 
+        case 'changePageHandler':
+
+            action.event.preventDefault()
+            const page_state = !state.page_state
+            return Object.assign({}, state, { page_state })
+
         case 'changeSelectHandler':
+
             return Object.assign({}, state, {
                 current_p_id: + action.event.target.value
             })

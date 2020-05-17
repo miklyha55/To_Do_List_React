@@ -3,28 +3,8 @@ import PropTypes from 'prop-types';
 
 export default class Active extends React.Component {
 
-	static path = '/';
-
 	constructor(props) {
-
 		super(props)
-	}
-
-	getDate(props) {
-		switch(props) {
-			case 'year':
-				return new Date().toLocaleString('ru', { year: 'numeric'})
-			case 'month':
-				return new Date().toLocaleString('ru', { month: 'long'})
-			case 'day':
-				return new Date().toLocaleString('ru', { day: 'numeric' })
-			case 'weekday':
-				return new Date().toLocaleString('ru', { weekday: 'long' })
-			case 'time':
-				return new Date().toLocaleTimeString()
-			default:
-				return new Date().toLocaleString('ru', { year: 'numeric',month: 'long',day: 'numeric' })
-		}
 	}
 
 	keyPressAddHandler(time, event) {
@@ -42,32 +22,13 @@ export default class Active extends React.Component {
 	render() {
 		return (
 
-			<div className="app_active">
-				<div className='app_header_wrapper unselectable'>
-					<div className='app_header'>
-						<div className='app_header_info'>
-							<div className='app_header_title'>{ this.getDate('weekday') }, { this.getDate('day') }</div>
-							<div className='app_header_month'>{ this.getDate('month') }</div>
-						</div>
-						<div className='app_header_count'>{ this.props.todos.length } зад.</div>
+			<div className='app_active'>
+				<div className='app_header unselectable'>
+					<div className='app_header_info'>
+						<a href='' className="app_link" onClick={ this.props.state.changePageHandler.bind(this) }>Завершенные задачи ({ this.props.completedcount })</a>
+						<div className='app_header_title'>Актиные задачи </div> 
 					</div>
-
-					<div className='add_form'>
-						<div className='add_form_select_wrapper'>
-							<span className='add_form_title'>В какую задачу добавить: </span>
-							<select className='add_form_select' value={ this.props.state.current_p_id } onChange={ this.props.state.changeSelectHandler.bind(this) }>
-								<option value='0'>Нет</option>
-								{this.props.todos.map((todo, index) => {
-									return (
-										<option key={ todo.index } value={ todo.index }>{ todo.name }</option>
-									)
-								})}
-							</select>
-						</div>
-						<textarea className='add_form_textarea' onKeyDown={this.keyPressAddHandler.bind(this, this.getDate('time'))} value={ this.props.state.inputValue } onChange={ this.props.state.changeInputHandler.bind(this) }/>
-						<p className='add_form_textarea_info'>Ctrl + Enter</p>
-						<button className='add_form_button' onClick={ this.props.state.addTodoHandler.bind(this, this.getDate('time')) }>Добавить</button>
-					</div>
+					<div className='app_header_count'>{ this.props.todos.length } зад.</div>
 				</div>
 
 				{ this.props.todos.length ? <ul className='todos_active'>
