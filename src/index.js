@@ -9,7 +9,8 @@ import App from './app';
 const initialState = {
 
 	todos: [],
-	inputValue: 'Задача 1'
+	inputValue: 'Задача 1',
+	current_p_id: 0
 
 }
 
@@ -27,7 +28,7 @@ const app = (
   <Provider store={ store }>
     <App/>
   </Provider>
-  
+
 )
 
 ReactDOM.render(app, document.querySelector('#app'));
