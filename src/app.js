@@ -1,8 +1,8 @@
 import'./less/index';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Active from './Active';
-import Completed from './Completed';
+import Active from './active';
+import Completed from './completed';
 import { connect } from 'react-redux'
 import { Transition } from 'react-transition-group'
 
