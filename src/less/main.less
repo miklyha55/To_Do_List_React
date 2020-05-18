@@ -108,6 +108,10 @@ html {
 	height: 130px;
 }
 
+.app_link {
+	color: gray;
+}
+
 .app_wrapper {
 	display: flex;
 	margin: auto;
@@ -118,7 +122,38 @@ html {
 	padding: 0 20px; 
 }
 
+
+.app_active.entering {
+	top: -1000px;
+}
+
+.app_active.entered {
+	top: 0;
+}
+
+.app_active.exiting, .app_active.exited {
+	display: none;
+}
+
+.app_completed.entering {
+	top: -1000px;
+}
+
+.app_completed.entered {
+	top: 0;
+}
+
+.app_completed.exiting, .app_completed.exited {
+	display: none;
+}
+
 .app_active, .app_completed {
+	position: relative;	
+	opacity: 1;
+	transition: 1s
+}
+
+.app_todos_wrapper {
 	flex-basis: 55%;
 	min-width: 500px;
 }

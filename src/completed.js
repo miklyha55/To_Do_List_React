@@ -10,7 +10,7 @@ export default class Сompleted extends React.Component {
 	render() {
 		return (
 
-			<div className='app_completed'>
+			<div className={`app_completed ${ this.props.stateTransition }`}>
 				<div className='app_header unselectable'>
 					<div className='app_header_info'>
 						<a href='' className='app_link' onClick={ this.props.state.changePageHandler.bind(this) }>Активные задачи ({ this.props.activecount })</a>

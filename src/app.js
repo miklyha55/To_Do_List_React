@@ -1,9 +1,10 @@
 import'./less/index';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Active from './active';
-import Completed from './completed';
-import {connect} from 'react-redux'
+import Active from './Active';
+import Completed from './Completed';
+import { connect } from 'react-redux'
+import { Transition } from 'react-transition-group'
 
 class App extends React.Component {
 
@@ -94,10 +95,14 @@ class App extends React.Component {
 						<button className='add_form_button' onClick={ this.props.addTodoHandler.bind(this, this.getDate('time')) }>Добавить</button>
 					</div>
 				</div>
-				{ this.props.page_state ?
-    			<Active state = { this.props } completedcount={ this.showTodosCompletedHandler.bind(this)().length } todos={ this.showTodosActiveHandler.bind(this)() }/>:
-    			<Completed state = { this.props } activecount={ this.showTodosActiveHandler.bind(this)().length }  todos={ this.showTodosCompletedHandler.bind(this)() }/>
-		    	}
+				<div className='app_todos_wrapper'>
+					<Transition in={ this.props.page_state } timeout={{ enter: 10, exit: 0 }} mountOnEnter unmountOnExit>
+	    				{state=> <Active stateTransition={ state } state = { this.props } completedcount={ this.showTodosCompletedHandler.bind(this)().length } todos={ this.showTodosActiveHandler.bind(this)() }/>}
+					</Transition>
+					<Transition in={ !this.props.page_state } timeout={{ enter: 10, exit: 0  }}  mountOnEnter unmountOnExit>
+	    				{state=> <Completed stateTransition={ state } state = { this.props } activecount={ this.showTodosActiveHandler.bind(this)().length }  todos={ this.showTodosCompletedHandler.bind(this)() }/>}
+	    			</Transition>
+    			</div>
 		    </div>
 
 	    )
